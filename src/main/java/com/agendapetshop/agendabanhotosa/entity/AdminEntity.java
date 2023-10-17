@@ -1,6 +1,8 @@
 package com.agendapetshop.agendabanhotosa.entity;
 
+import com.agendapetshop.agendabanhotosa.DTO.AdminDTO;
 import jakarta.persistence.*;
+import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDate;
 @Entity
@@ -19,7 +21,11 @@ public class AdminEntity {
     private String adminSenha;
     @Column(nullable = false)
     private String adminEmail;
-    private LocalDate dataCadastro;
+    public AdminEntity(AdminDTO adminDTO) {
+        BeanUtils.copyProperties(adminDTO, this);
+    }
+    public AdminEntity() {
+    }
 
     public long getAdminId() {
         return adminId;
@@ -69,14 +75,6 @@ public class AdminEntity {
         this.adminEmail = adminEmail;
     }
 
-    public LocalDate getDataCadastro() {
-        return dataCadastro;
-    }
-
-    public void setDataCadastro(LocalDate dataCadastro) {
-        this.dataCadastro = dataCadastro;
-    }
-
     @Override
     public String toString() {
         return "AdminEntity{" +
@@ -86,7 +84,6 @@ public class AdminEntity {
                 ", adminUsuario='" + adminUsuario + '\'' +
                 ", adminSenha='" + adminSenha + '\'' +
                 ", adminEmail='" + adminEmail + '\'' +
-                ", dataCadastro=" + dataCadastro +
                 '}';
     }
 }
